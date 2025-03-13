@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+  <!-- BOOTSTRAP CSS -->
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/404.css}" rel="stylesheet">
+</head>
+<body>
+	
+<div class="error-page d-flex align-items-center justify-content-center">
+    <div class="error-container text-center p-4">
+        <h1 class="error-code mb-0">404</h1>
+        <h2 class="display-6 error-message mb-3">Page Not Found</h2>
+        <p class="lead error-message mb-5">Baka da omae!</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/post/home" class="btn btn-glass px-4 py-2">Return Home</a>
+            
+        </div>
+    </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

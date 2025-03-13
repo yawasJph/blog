@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head::head}">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header th:replace="~{components/header::header}">
+</header>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3>Edit Post</h3>
+        </div>
+        <div class="card-body">
+          <form th:action="@{/post/update}" method="post">
+            <input type="hidden" name="postId" th:value="${post.id}">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="tittle" th:value="${post.tittle}">
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Content</label>
+              <textarea class="form-control" id="content" name="content" rows="20" th:text="${post.content}"></textarea>
+            </div>
+            <div class="text-end">
+              <a class="btn btn-danger" th:href="@{/post/mine}">Cancel</a>
+              <button type="submit" class="btn btn-secondary">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

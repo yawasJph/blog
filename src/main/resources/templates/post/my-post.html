@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head::head}">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header th:replace="~{components/header::header}">
+</header>
+
+<div class="container mt-4">
+    <h1>Published Publications</h1>
+    <div th:each="post : ${posts}" class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title" th:text="${post.tittle}"></h3>
+            <p class="card-text" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy  HH:mm')}"></p>
+            <p class="card-text" th:text="${post.content}"></p>
+             <a th:href="@{/post/postPage/{id} (id=${post.id}) }"
+                                       type="button"
+                                       class="btn btn-primary me-2"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-offset="0,4"
+                                       data-bs-placement="top"
+                                       data-bs-html="true"
+                                       title="<i class='bx bx-bell bx-xs' ></i> <span>See</span>">
+                                        <img src="/img/see.png" alt="see">
+                                    </a>
+              <a th:href="@{/post/edit/{id} (id=${post.id}) }"
+                                       type="button"
+                                       class="btn btn-warning me-2"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-offset="0,4"
+                                       data-bs-placement="top"
+                                       data-bs-html="true"
+                                       title="<i class='bx bx-bell bx-xs' ></i> <span>Edit</span>">
+                                        <img src="/img/edit.png" alt="edit">
+                                    </a>
+              <a th:href="@{/post/delete/{id} (id=${post.id}) }"
+                                       type="button"
+                                       onclick="return confirm('are you sure?')"
+                                       class="btn btn-danger float-end"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-offset="0,4"
+                                       data-bs-placement="top"
+                                       data-bs-html="true"
+                                       title="<i class='bx bx-bell bx-xs' ></i> <span>Delete</span>">
+                                        <img src="/img/delete.png" alt="delete">
+                                    </a>
+        </div>
+    </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Tooltip Javascript -->
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+
+</body>
+</html>

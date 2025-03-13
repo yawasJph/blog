@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<div class="alert alert-success text-center" th:fragment="success">
+	<th:block>[[${success}]]</th:block>
+</div>
+
+<div class="alert alert-success text-center" th:fragment="logout">
+	<th:block >[[${logout}]]</th:block>
+</div>
+
+<div class="alert alert-danger text-center" th:fragment="error">
+	<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+		[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+	</th:block>
+</div>

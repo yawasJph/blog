@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head::head}">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header th:replace="~{components/header::header}">
+</header>
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title" th:text="${post.tittle}"></h5>
+      <strong  class="text-danger" th:text="${post.user.username}"></strong>
+      <p th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy HH:mm')}"></p>
+    </div>
+    <div class="card-body">
+      <p class="card-text" th:text="${post.content}"></p>
+    </div>
+
+    <!-- comment -->
+    <div th:if="${not #lists.isEmpty(comments)}">
+      <ul class="list-group list-group-flush">
+        <li th:each="comment : ${comments}" class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <h6 class="mb-0 text-primary" th:text="${comment.user.name}"></h6>
+            <small th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy HH:mm')}"></small> 
+          </div>
+          <div class="d-flex justify-content-between">
+            <p class="mb-0" th:text="${comment.content}"></p>
+            <!-- buttons -->
+            <div class="mt-3"  th:if="${ user != null && user.id == comment.user.id}">
+               <a th:href="@{/comment/edit/{id} (id=${comment.id}) }"
+                                       type="button"
+                                      class="btn btn-sm btn-warning me-1"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-offset="0,4"
+                                       data-bs-placement="top"
+                                       data-bs-html="true"
+                                       title="<i class='bx bx-bell bx-xs' ></i> <span>Edit</span>">
+                                        <img src="/img/edit_comment.png" alt="edit_comment">
+                                    </a>	
+           	 <a th:href="@{/comment/delete/{id} (id=${comment.id}) }"
+                                       type="button"
+                                       onclick="return confirm('are you sure?')"
+                                       class="btn btn-sm btn-danger me-1"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-offset="0,4"
+                                       data-bs-placement="top"
+                                       data-bs-html="true"
+                                       title="<i class='bx bx-bell bx-xs' ></i> <span>Delete</span>">
+                                        <img src="/img/delete_comment.png" alt="delete_comment">
+                                    </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-footer">
+      <form th:action="@{/comment/addComment}" method="post">
+        <div class="mb-3">
+          <input type="hidden" name="postId" th:value="${post.id}" />
+          <label for="content" class="form-label">Add a comment:</label>
+          <textarea class="form-control" id="content" name="content" rows="3" autocomplete="off"></textarea>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-secondary">Comment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Tooltip Javascript -->
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+
+</body>
+</html>
